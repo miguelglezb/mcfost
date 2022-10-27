@@ -103,8 +103,8 @@ ifeq ($(SYSTEM), ifort)
 endif
 
 ifeq ($(SYSTEM), gfortran)
-    FC= gfortran
-    FFLAGS+= -m64 -cpp -O3 -funroll-loops -ffinite-math-only -fno-trapping-math \
+    FC= gfortran-12
+    FFLAGS+= -cpp -O3 -funroll-loops -ffinite-math-only -fno-trapping-math \
 	     -ffree-line-length-132 -fbacktrace
     STATIC_FLAGS= -static-libgcc -static-libstdc++
     DBLFLAG= -fdefault-real-8 -fdefault-double-8
@@ -113,7 +113,7 @@ ifeq ($(SYSTEM), gfortran)
     FOMPFLAGS= -fopenmp
     CC= gcc
     CXX= g++
-    CCFLAGS= -Wall -pedantic -m64 -O3 -funroll-loops -ffinite-math-only -fno-trapping-math
+    CCFLAGS= -Wall -pedantic -O3 -funroll-loops -ffinite-math-only -fno-trapping-math
     COMPFLAGS= -fopenmp
     LIBCXX= -lstdc++
     ifneq ($(shell $(CC) -v 2>&1 | grep -c "clang"), 0)

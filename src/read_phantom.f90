@@ -45,6 +45,7 @@ contains
     type(dump_h) :: hdr
     logical :: got_h,got_dustfrac,got_itype,tagged,matched,got_temperature,got_u,lpotential,do_nucleation
     integer :: ifile, np0, ntypes0, np_tot, ntypes_tot, ntypes_max, ndustsmall, ndustlarge
+    logical :: lignore_sinks
 
     ! We first read the number of particules in each phantom file
     np_tot = 0
@@ -162,7 +163,13 @@ contains
        write(*,*) ' npart = ',np,' ntypes = ',ntypes, ' ndusttypes = ',ndusttypes
        write(*,*) ' nptmass = ', nptmass
 
+       lignore_sinks = .false.
+       if (lignore_sinks) then
+          nptmass = 0
+          print*,"IGNORING SINK PARTICLES"
+       endif
        write(*,*) "Found", nptmass, "point masses"
+
 
        ! testing for binary potential
        call extract('x2',x2,hdr,ierr)
@@ -317,7 +324,7 @@ contains
                          read(iunit,iostat=ierr)
                       endif
                       if (ierr /= 0) call error("Error reading tag: "//trim(tag))
-                   elseif (j==2 .and. number8(j) > 0) then ! sink particles
+                   elseif (j==2 .and. number8(j) > 0 .and. .not.lignore_sinks) then ! sink particles
                       read(iunit,iostat=ierr) tag
                       matched = .true.
                       if (i==i_real .or. i==i_real8) then
@@ -965,7 +972,7 @@ contains
        ldudt_implicit = .false.
     endif
 
-    write(*,*) "# Stars/planets:"
+    write(*,*) "# Stars/planets: ",nptmass
     n_etoiles_old = n_etoiles
     n_etoiles = 0
     do i=1,nptmass
@@ -1068,7 +1075,7 @@ contains
 
           etoile(i_etoile)%M = xyzmh_ptmass(4,i_etoile) * usolarmass
        enddo
-    else
+    elseif (n_etoiles > 0) then
        write(*,*) ""
        write(*,*) "Updating the stellar properties:"
        write(*,*) "There are now", n_etoiles, "stars in the model"

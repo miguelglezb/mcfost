@@ -81,7 +81,7 @@ elif [ "$SYSTEM" = "gfortran" ]; then
     export CC=gcc
     export FC=gfortran
     export CXX=g++
-    export CFLAGS="-m64"
+#    export CFLAGS="-m64"
 else
     echo "Unknown system to build MCFOST: $SYSTEM"
     echo "Please choose ifort or gfortran"
@@ -202,7 +202,7 @@ if [ "$MCFOST_XGBOOST" = "yes" ]; then
         export CC=gcc
         export FC=gfortran
         export CXX=g++
-        export CFLAGS="-m64"
+#        export CFLAGS="-m64"
     fi
 
     #-- we remove the ifort test for the moment even if the default works for gfortran

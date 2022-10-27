@@ -27,10 +27,10 @@ MPICC = mpicc
 # Please include mpi header file path, if needed
 
 #CFLAGS = -O3 -DLittleEndian $(PMLCGDEF) $(MPIDEF) -D$(PLAT)  -I/usr/local/mpi/include -I/usr/local/mpi/build/LINUX/ch_p4/include
-CFLAGS = -m64 -O3 -DLittleEndian $(PMLCGDEF) $(MPIDEF) -D$(PLAT) -DPOINTER_SIZE=8
-CLDFLAGS =  -m64 -O3 -DPOINTER_SIZE=8 -D_LONG_LONG
+CFLAGS = -O3 -DLittleEndian $(PMLCGDEF) $(MPIDEF) -D$(PLAT) -DPOINTER_SIZE=8
+CLDFLAGS =  -O3 -DPOINTER_SIZE=8 -D_LONG_LONG
 #FFLAGS = -O3 $(PMLCGDEF) $(MPIDEF) -D$(PLAT)  -I/usr/local/mpi/include -I/usr/local/mpi/build/LINUX/ch_p4/include -I.
-FFLAGS = -m64 -O3 $(PMLCGDEF) $(MPIDEF) -D$(PLAT) -DPOINTER_SIZE=8
-F77LDFLAGS =  -m64 -O3 
+FFLAGS = -O3 $(PMLCGDEF) $(MPIDEF) -D$(PLAT) -DPOINTER_SIZE=8
+F77LDFLAGS =  -O3 
 
 CPP = cpp -P

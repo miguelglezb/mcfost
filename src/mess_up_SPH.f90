@@ -78,6 +78,7 @@ contains
     integer :: i, n_delete
     real(kind=dp) :: d2, r, r2, dx, dy, dz, ulength_au
 
+    scale_length_units_factor = 1.0
     ulength_au = udist * scale_length_units_factor  / au_to_cm
     r = rsph /  ulength_au  ! converting back to phantom code units
 
@@ -100,7 +101,7 @@ contains
        endif
     enddo particle_loop
 
-    write(*,*) n_delete, "particles were deleted indide rsph=", rsph
+    write(*,*) n_delete, "particles were deleted indide rsph=", rsph,r,ulength_au
     return
 
   end subroutine mask_inside_rsph
